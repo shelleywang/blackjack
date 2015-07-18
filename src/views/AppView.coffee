@@ -20,20 +20,17 @@ class window.AppView extends Backbone.View
       that = @
       alertMessage = () ->
         if 22 > dealerScore > playerScore
-          appstate = {
-            deck: that.model.get 'deck'
-          }
-          localStorage.setItem 'appState', JSON.stringify(appstate)
-
           confirm "Dealer wins with #{dealerScore}, Do you want to play another hand?"
-          window.location.reload()
-        else
-          appstate = {
-            deck: that.model.get 'deck'
-          }
-          localStorage.setItem 'appState', JSON.stringify(appstate) 
+        else if dealerScore is playerScore
+          confirm "You tied with #{dealerScore}, Do you want to play another hand?"
+        else  
           confirm "You win with #{playerScore}, Do you want to play another hand?"
-          window.location.reload()
+        
+        appstate = {
+          deck: that.model.get 'deck'
+        }
+        localStorage.setItem 'appState', JSON.stringify(appstate)
+        window.location.reload()
       setTimeout alertMessage, 200
 
 

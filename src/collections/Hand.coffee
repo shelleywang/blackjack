@@ -11,6 +11,12 @@ class window.Hand extends Backbone.Collection
       that = @
       alertMessage = () ->
         confirm 'BUST, Do you want to play again?'
+
+        appstate = {
+          deck: that.deck
+        }
+        localStorage.setItem 'appState', JSON.stringify(appstate)
+
         that.trigger 'endHand', that 
       setTimeout alertMessage, 200
       
