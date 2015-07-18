@@ -10,21 +10,27 @@ class window.AppView extends Backbone.View
   events:
     'click .hit-button': -> @model.get('playerHand').hit()
     'click .stand-button': -> 
-      @model.get('dealerHand').stand() 
-      # dealerScore = @model.get('dealerHand').scores().reduce((a,b)-> if 22 > a > b and b then a else b) 
-      # playerScore = @model.get('playerHand').scores().reduce((a,b)-> if 22 > a > b and b then a else b) 
-      dealerScore = @model.get('dealerHand').scores().sort((a,b)-> b-a)
-      playerScore = @model.get('playerHand').scores().sort((a,b)-> b-a)
+      @model.get('dealerHand').stand()  
+      dealerScoreArray = @model.get('dealerHand')
+      playerScoreArray = @model.get('playerHand')
+      dealerScore = dealerScoreArray.scores().sort((a,b)-> b-a)
+      playerScore = playerScoreArray.scores().sort((a,b)-> b-a)
       if playerScore[0] <=21 then playerScore = playerScore[0] else playerScore = playerScore[1] 
       if dealerScore[0] <=21 then dealerScore = dealerScore[0] else dealerScore = dealerScore[1] 
       that = @
       alertMessage = () ->
         if 22 > dealerScore > playerScore
-          confirm "Dealer wins with #{dealerScore}, Do you want to play another hand?"
+          if dealerScoreArray.models.length is 2 and dealerScore is 21 
+            confirm "Dealer wins with BLACKJACK, Do you want to play another hand?"    
+          else 
+            confirm "Dealer wins with #{dealerScore}, Do you want to play another hand?"
         else if dealerScore is playerScore
           confirm "You tied with #{dealerScore}, Do you want to play another hand?"
         else  
-          confirm "You win with #{playerScore}, Do you want to play another hand?"
+          if playerScoreArray.models.length is 2 and playerScore is 21 
+            confirm "You win with BLACKJACK, Do you want to play another hand?"    
+          else 
+            confirm "You win with #{playerScore}, Do you want to play another hand?"
         
         appstate = {
           deck: that.model.get 'deck'
