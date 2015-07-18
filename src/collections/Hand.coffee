@@ -7,7 +7,13 @@ class window.Hand extends Backbone.Collection
     last = @deck.last()
     @add(@deck.pop())
     score = @scores()
-    if score[0] > 21 then alert 'BUST' 
+    if score[0] > 21
+      that = @
+      alertMessage = () ->
+        confirm 'BUST, Do you want to play again?'
+        that.trigger 'endHand', that 
+      setTimeout alertMessage, 200
+      
     last 
 
   stand: ->

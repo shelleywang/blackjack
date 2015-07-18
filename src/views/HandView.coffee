@@ -18,7 +18,11 @@ class window.HandView extends Backbone.View
           @$('.score').text "#{score[1]}"
       else
         @$('.score').text "#{score[0]}"
-        
+
+    @collection.on 'endHand', =>
+      window.location.reload()
+
+
     @render()
 
   render: ->
