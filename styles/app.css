@@ -1,16 +1,39 @@
-.card {
-  float: left;
-  border: solid 1px black;
-  width: 100px;
-  border-radius: 5px;
-  height: 140px;
-  margin-right: 20px;
+body {
+  background-image: url(../img/background.png);
+  background-size: 100% 100%;
+  text-align: center;
 }
 
 .covered {
-  background-color: black;
+  background-image: url(img/card-back.png);
 }
+.card {
+  float: left;
+  border: solid 1px black;
+  width: 125px;
+  border-radius: 5px;
+  height: 185px;
+  margin-right: 20px;
+  margin-left:20px;
+  margin-bottom:15px;
+  background-size: 100% 100%;
+}
+
 
 .hand {
   overflow: auto;
+}
+
+.player-hand-container {
+  position: absolute;
+  bottom:50px;
+  left:35%;
+  color:white;
+}
+
+.dealer-hand-container {
+  color:white;
+  top:50px;
+  left:35%;
+  position:absolute;
 }
