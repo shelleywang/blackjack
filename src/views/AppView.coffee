@@ -3,6 +3,8 @@ class window.AppView extends Backbone.View
     <button class="hit-button">Hit</button> <button class="stand-button">Stand</button>
     <div class="player-hand-container"></div>
     <div class="dealer-hand-container"></div>
+    <div class="cardcount"></div>  
+    <div class="cardcount2"></div>
   '
 
   events:
@@ -40,9 +42,10 @@ class window.AppView extends Backbone.View
 
 
   render: ->
+    cards = @model.get 'deck'
     @$el.children().detach()
     @$el.html @template()
     @$('.player-hand-container').html new HandView(collection: @model.get 'playerHand').el
     @$('.dealer-hand-container').html new HandView(collection: @model.get 'dealerHand').el
 
-
+    @$('.cardcount2').append "<br/><p>Cards left #{cards.length}</p>"
